@@ -19,6 +19,19 @@ app.get('/pokemons', async (req, res) => {
     }
 });
 
+app.get('/pokemons/:id', async (req, res) => {
+    try {
+        const poke = await pokemon.findOne({ id: req.params.id });
+        if (poke) {
+            res.json(poke);
+        } else {
+            res.status(404).send('Pokemon not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 
 
 app.listen(3000, () => {
