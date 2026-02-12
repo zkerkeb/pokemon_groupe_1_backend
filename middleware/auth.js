@@ -31,8 +31,10 @@ const authMiddleware = (req, res, next) => {
         });
     }
 
+    // req.headers.authorization = "Bearer monTOKEN"
     // 3. Extraire le token (tout ce qui suit "Bearer ")
     const token = authHeader.split(' ')[1];
+    // ["Bearer", "monTOKEN"]
 
     try {
         // 4. Vérifier et décoder le token avec la clé secrète

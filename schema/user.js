@@ -48,14 +48,13 @@ const userSchema = new mongoose.Schema({
  * Le "salt round" (10) détermine la complexité du hashage.
  * Plus le nombre est élevé, plus c'est sécurisé mais plus c'est lent.
  */
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
     // On ne re-hash que si le mot de passe a été modifié (ou est nouveau)
     // Cela évite de re-hasher un hash existant lors d'une mise à jour d'email par exemple
     if (!this.isModified('password')) return next();
 
     // bcrypt.hash(motDePasse, saltRounds) → retourne le mot de passe hashé
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 /**
